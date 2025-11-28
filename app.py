@@ -182,7 +182,15 @@ def visit_and_solve(url, timeout_seconds=120):
     session.headers.update({"User-Agent": "quiz-solver-bot/1.0"})
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        browser = p.chromium.launch(
+    headless=True,
+    args=[
+        "--no-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--disable-setuid-sandbox"
+    ]
+)
         context = browser.new_context()
         page = context.new_page()
         page.set_default_navigation_timeout(timeout_seconds * 1000)
