@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -eux
 
-# Install Python dependencies
+# Install Python deps
 pip install -r requirements.txt
 
-# Install Playwright browsers (Chromium) inside the Render environment
-python -m playwright install chromium --with-deps
+# Create browser cache directory
+mkdir -p /opt/render/.cache/ms-playwright
 
-# Ensure Playwright cache directory is accessible
-chmod -R 777 /opt/render/.cache/ms-playwright || true
+# Install Chromium into that directory
+PLAYWRIGHT_BROWSERS_PATH=/opt/render/.cache/ms-playwright python -m playwright install chromium --with-deps
